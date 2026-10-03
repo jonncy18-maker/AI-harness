@@ -1,7 +1,7 @@
 # AI Harness
 
 One place to call different LLM providers (Anthropic, OpenAI, Google) via
-API from a single UI. See `CLAUDE.md` for the full stack, structure, and
+API from a single UI. See `AGENTS.md` for the full stack, structure, and
 rules.
 
 ## Local dev

@@ -1,6 +1,6 @@
 # Roadmap / Session Log
 
-Dated history and session-by-session notes live here, not in `CLAUDE.md`. `CLAUDE.md` stays a living reference; this file is the narrative.
+Dated history and session-by-session notes live here, not in `AGENTS.md`. `AGENTS.md` stays a living reference; this file is the narrative.
 
 ---
 
@@ -13,7 +13,7 @@ Finish the `/grill-me` scoping session below (phasing, vision input, tool safety
 ## Open / Tracked To-Dos
 
 - [ ] **Finish the grill-me scoping session** — see 2026-09-20 entry below. Paused mid-interview to write this file; several branches still unresolved (listed there).
-- [ ] **Revisit CLAUDE.md's "no database yet" stance** — resolved during this session: it needs one (Neon, following the Personal-Dashboard pattern) once conversation persistence is scoped for real.
+- [ ] **Revisit AGENTS.md's "no database yet" stance** — resolved during this session: it needs one (Neon, following the Personal-Dashboard pattern) once conversation persistence is scoped for real.
 - [ ] **Design the tool-calling safety gate** — his other repos (Personal-Dashboard, NextGen-Scholars, AI-Capital-Planning) all pair tool-calling with a read-executes-immediately / write-pauses-for-confirmation split and an iteration cap. Not yet designed for AI-harness.
 
 ---
@@ -26,7 +26,7 @@ Kicked off by a cross-repo survey (Personal-Dashboard, Agentic-Loop, NextGen-Imm
 
 1. **Purpose:** primarily a learning project. John wants a harness where he can pick whichever LLM family is best suited per task, starting with the top 3 providers (Anthropic, OpenAI, Google), open to more later.
 2. **Interface shape:** conversational, multi-turn — "similar to the Claude environment," not the one-shot extraction pattern his other repos use.
-3. **Persistence:** conversation history must persist across sessions/devices. This reverses CLAUDE.md's current "no database yet" stance — a Neon project (mirroring Personal-Dashboard's pattern) is now in scope.
+3. **Persistence:** conversation history must persist across sessions/devices. This reverses AGENTS.md's current "no database yet" stance — a Neon project (mirroring Personal-Dashboard's pattern) is now in scope.
 4. **Model switching:** switchable mid-conversation. The full thread history is replayed to whichever model is currently active — meaning messages need to be stored in a provider-agnostic format and translated into each provider's own message schema at send time.
 5. **Context/compaction:** model context-window size (including opt-in extended modes, e.g. Sonnet's 1M-token beta) is tracked as per-model metadata. John wants **auto-compaction** as a thread approaches a model's limit, **plus a manual "compact now" trigger** — modeled after how Claude Code itself handles context (usage indicator, opt-in extended context, auto-summarization near the limit were discussed as the three distinct pieces; John wants the full auto-compaction behavior, not just the indicator or the toggle).
 6. **Tool-calling:** in scope for v1, not deferred. Scope discussed: web search, URL fetching, code execution, and hitting his other apps' APIs (inspired by "pull all the tools that my apps have").
