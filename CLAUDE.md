@@ -111,12 +111,22 @@ repos, from the [Agentic-Loop repo](https://github.com/jonncy18-maker/Agentic-Lo
 A change small enough to skip the loop (a typo, a one-line config tweak) is
 still governed by the profile.
 
-## 8. References
+## 8. Cross-Cutting Rules
+
+**Subagent model selection — name the family, never a version; choose by how checkable the output is.** The main session picks the model per task. This is a default, not an allowlist — when it reports back it says which model it used and why.
+- **Haiku** — anything with a clear spec whose output gets checked: file/usage sweeps, summarizing output, mechanical edits, formatting, small tests, docs written to a spec, parallel fan-out searches. It's the smallest tier, so "simple" alone isn't enough: a trivial job nothing will catch (a security-sensitive edit, a verbatim move across many files) goes to Sonnet.
+- **Sonnet** — the default when unsure: building features, tracing bugs, refactors, UI work, reviews.
+- **Opus** — when a subtle mistake would be expensive or the problem is ambiguous, whatever its size: architecture and scoping decisions, audits whose misses are costly.
+- **Escalate, don't patch around.** If a cheaper model's result looks thin or fails a check, rerun it one tier up rather than trusting or hand-fixing it.
+
+Write model families here ("Sonnet", never "Sonnet 5.5"), so the rule keeps meaning the current tier without an edit. This is about which model Claude Code's subagents use — it does not change any model IDs pinned in application code, which stay pinned to exact IDs deliberately.
+
+## 9. References
 
 - [Agentic-Loop repo](https://github.com/jonncy18-maker/Agentic-Loop) — shared development protocol and coder profile
 - [Personal-Dashboard repo](https://github.com/jonncy18-maker/Personal-Dashboard) — sibling repo this CLAUDE.md's structure is modeled on; also the reference for the Neon migration pattern if/when this repo adds a database
 
-## 9. Map
+## 10. Map
 
 No `.claude/skills/` yet — this repo is one page and one route. Add a
 domain skill here (and list it below) once a real feature area exists
