@@ -132,3 +132,13 @@ than growing this file past what one page needs.
 **Keeping this file short is a maintenance rule, not a one-time cleanup.**
 Only genuinely cross-cutting rules belong here; a single feature's detail
 belongs in that feature's own skill once one exists. Anything only Claude Code needs goes in `CLAUDE.md`. State each rule once, and never put agent permissions (push, merge, deploy) here.
+
+## Working in an agent copy (Codex / Antigravity)
+
+Applies only when your working directory is under `~/code/_codex/` or `~/code/_antigravity/`. Those copies sync from the local `main` in `~/code/<repo>`, not from GitHub (local `main` is usually ahead, and the copies have no push access).
+
+At the start of each session, with the copy on a clean `main`:
+
+1. `git fetch local && git merge --ff-only local/main`.
+2. If the copy is not on a clean `main`, or the fast-forward fails, stop and tell John. Do not reset, rebase or discard anything on your own.
+3. Do your work on a local branch and hand it back through the audit inbox; never edit `main` in the copy.
