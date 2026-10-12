@@ -4,7 +4,7 @@ One place to call different LLM providers — Anthropic, OpenAI, Google — from
 a single UI, using each provider's own API directly (no router/gateway
 service in between). Built for a single user (John), no public access.
 
-Shared project instructions for every coding agent (Claude Code, Codex, Antigravity). Each agent's role and permissions live in its own global file, not here.
+Shared project instructions for every coding agent (Claude Code, Codex). Each agent's role and permissions live in its own global file, not here.
 
 - **Repo:** `jonncy18-maker/AI-harness`
 - **Live URL(s):** _(fill in after first Vercel deploy)_
@@ -133,12 +133,24 @@ than growing this file past what one page needs.
 Only genuinely cross-cutting rules belong here; a single feature's detail
 belongs in that feature's own skill once one exists. Anything only Claude Code needs goes in `CLAUDE.md`. State each rule once, and never put agent permissions (push, merge, deploy) here.
 
-## Working in an agent copy (Codex / Antigravity)
+## Working in a worktree (Codex)
 
-Applies only when your working directory is under `~/code/_codex/` or `~/code/_antigravity/`. Those copies sync from the local `main` in `~/code/<repo>`, not from GitHub (local `main` is usually ahead, and the copies have no push access).
+Applies when your working directory is under `~/code/_worktrees/<repo>/`. Each worktree is one temporary branch (`codex/<topic>`) cut from the local `main` in `~/code/<repo>`.
 
-At the start of each session, with the copy on a clean `main`:
+1. Before you start, confirm the branch was cut from the current local `main`. If it is behind, run `git merge main` on your branch and tell John.
+2. Do your work on that branch; never edit `main`.
+3. When you finish, leave a handoff note in the inbox (`~/code/_inbox/`); Claude Code integrates the branch and deletes it.
 
-1. `git fetch local && git merge --ff-only local/main`.
-2. If the copy is not on a clean `main`, or the fast-forward fails, stop and tell John. Do not reset, rebase or discard anything on your own.
-3. Do your work on a local branch and hand it back through the audit inbox; never edit `main` in the copy.
+## Branching
+
+One repo per project; `main` plus short-lived `<agent>/<topic>` branches (`claude/`, `codex/`). Claude Code integrates into `main` and deletes each branch once it is integrated. Full rules, folder layout and the integration steps: https://raw.githubusercontent.com/jonncy18-maker/Agentic-Loop/main/BRANCHING.md
+
+## Reporting to John
+
+When you give John information (a plan, review, status, comparison, folder or branch layout, audit result), include a visual with it. Pick the simplest one that fits:
+
+- Structure, layout, flow or branches: a diagram (Mermaid block, or a small table-tree if Mermaid will not render).
+- Status or comparison: a table.
+- Anything John will keep: also write it as an HTML or Markdown file in the shared inbox (`~/code/_inbox/`) and name the path.
+
+Lead with the visual, then add a short text explanation. A one- or two-sentence answer does not need a visual.
